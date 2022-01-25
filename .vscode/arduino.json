@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:leonardo",
+    "port": "COM6",
+    "sketch": "Morse_Decoder_LeonardoR1\\Morse_Decoder_LeonardoR1.ino",
+    "programmer": "arduino:avrispmkii"
+}
