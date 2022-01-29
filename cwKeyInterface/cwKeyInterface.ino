@@ -49,8 +49,8 @@ void setup() {
   //digitalWrite(A0, HIGH);
   pinMode(5, INPUT_PULLUP);
   //digitalWrite(A1, HIGH);
-  pinMode(6, INPUT_PULLUP);
   pinMode(7, INPUT_PULLUP);
+  pinMode(8, INPUT_PULLUP);
   DitPeriod = 1200/wpm;
   TonePeriod= (int)( 1000000.0/((float)toneFreq*2));
  
@@ -63,8 +63,8 @@ void loop() {
   int PaddleDahVal = digitalRead(2);    //Paddle "Dah" input
   int SpeedIncVal = digitalRead(4);     //Speed Increment input
   int SpeedDecVal = digitalRead(5);     //Speed Decrement input
-  int ToneIncVal = digitalRead(6);      //Tone Increment input
-  int ToneDecVal = digitalRead(7);      //Tone Decrement input
+  int ToneIncVal = digitalRead(7);      //Tone Increment input
+  int ToneDecVal = digitalRead(8);      //Tone Decrement input
   if(spdSwNO){
     SpeedIncVal = !SpeedIncVal; 
     SpeedDecVal = !SpeedDecVal;
@@ -121,11 +121,11 @@ void loop() {
         }
       }
       if(ToneIncVal){ //user signaling to increase tone freq
-        toneFreq += 50;
+        toneFreq += 30;
         TonePeriod = (int)( 1000000.0/((float)toneFreq*2));
       }
       if(ToneDecVal){ //user signaling to decrease tone freq
-        toneFreq += 30;
+        toneFreq -= 30;
         TonePeriod = (int)( 1000000.0/((float)toneFreq*2));
       }
     }
