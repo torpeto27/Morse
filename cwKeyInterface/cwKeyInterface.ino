@@ -41,9 +41,11 @@ void setup() {
   pinMode(2, INPUT_PULLUP);
   pinMode(1, INPUT_PULLUP);
   pinMode(0, INPUT_PULLUP);
-  //configure 3 as digital output [used in this case to drive a seperate CW decoder module]
+  //configure 3 and 6 as digital output [used in this case to drive a seperate CW decoder module] and LED
   pinMode(3, OUTPUT);
+  pinMode(6, OUTPUT);
   digitalWrite(3, HIGH);
+  digitalWrite(6, HIGH);
   //Note switches I used are normally closed, so input goes HIGH when the user operates the switch
   pinMode(4, INPUT_PULLUP);
   //digitalWrite(A0, HIGH);
@@ -152,6 +154,7 @@ void loop() {
     else{ // SpaceActive is true;  So we want to remain silent for the lenght of a "dit"
        if (End > millis()){
         digitalWrite(3, HIGH); //output to remote decoder
+        digitalWrite(6, HIGH);
         digitalWrite(15, LOW);
         digitalWrite(16, LOW);
       }
@@ -165,6 +168,7 @@ void loop() {
  
   if(StraightKeyVal & !Running ){ //if the straight key input is "Open", and the Paddle mode isn't active, turn the speaker off
     digitalWrite(3, HIGH); //output to remote decoder 
+    digitalWrite(6, HIGH); //output to LED 
     digitalWrite(15, LOW);
     digitalWrite(16, LOW);
   }
@@ -174,6 +178,7 @@ void loop() {
 
 void MakeTone(){//Cycle the speaker pins
   digitalWrite(3, LOW); //output to remote decoder
+  digitalWrite(6, LOW); //output to LED
   digitalWrite(15, LOW);
   digitalWrite(16, HIGH);
   delayMicroseconds(TonePeriod);

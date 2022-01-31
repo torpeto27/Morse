@@ -6,6 +6,25 @@
  ^   The Touch Screen & GFX libraries are standard (unmodified) Adafruit libraries & were found here:4
  *       https://github.com/adafruit/Adafruit-GFX-Library
  *       https://github.com/adafruit/Touch-Screen-Library
+ * 
+ * https://www.eelectronicparts.com/collections/tft-displays/products/2-4-tft-lcd-display-shield-id-0x9341-touch-panel-screen-arduino-uno-mega-sd-card
+ * - 2.4" diagonal LCD TFT display
+ * - Bright 4 white-LED backlight
+ * - Colorful 18-bit 262,000 different shades
+ * - 4-wire resistive touchscreen
+ * - 240x320 resolution
+ * - 8 bit digital interface,plus 4 control lines
+ * - Use digital pins 5-13 and analog 0-3
+ * - Pin 12 is available if not using the micro SD
+ * - 5V compatible,use with 3.3V or 5V logic
+ * - Onboard 3.3V (300mA LDO regulator)
+ * - Size:71*52*7mm
+ * - SD card slot
+ * - ID=0x9341
+ 
+Libaries:
+MCUFRIEND_kbv
+ * 
 */
  
 #include <TouchScreen.h>
