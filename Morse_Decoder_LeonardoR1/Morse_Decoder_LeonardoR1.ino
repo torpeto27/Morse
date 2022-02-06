@@ -1,6 +1,16 @@
-/* Rev: 2019-06-20 */
-/* Rev: 2018-02-13 */
-/*  
+/* Rev: 2022-02-05
+ *  HW adjustmented for this configuraiton: Leonardo and MCUFRIEND_kbv 2.4" TFT
+ *  Added tone frequency inc/decrement button inputs
+ * Rev: 2019-06-20
+ * Rev: 2018-02-13
+ *  
+ * Arduino Leonardo was used, powered through external regulated wall-wart micro-USB. The +5V pin provides the power to Teensyduino 2.0++
+ *  (the Leonardo's linear regulator could not provide enough current to reliably run both MCUs). An external step-down (buck) regulator could be
+ *  used to power both MCU's from a 9V battery.
+ * A 1k ohm resistor was used to connect the Teensy digital key output to the Leonardo interupt 0. This 3D viewer was used to find a
+ *  convenient via for soldering the interrupt connection. https://docs.arduino.cc/hardware/leonardo#:~:text=constants)%2C%20and%20structure.-,Resources,-Interactive%20Viewer
+ * 
+ * 
  *   The TFTLCD library comes from here:  https://github.hcom/prenticedavid/MCUFRIEND_kbv    
  *    note: after inporting the above library using the ide add zip library menu option, remane the folder to remover the word "master"
  ^   The Touch Screen & GFX libraries are standard (unmodified) Adafruit libraries & were found here:4
@@ -49,10 +59,11 @@ MCUFRIEND_kbv
 // const int TS_LEFT = 186, TS_RT = 996, TS_TOP = 222, TS_BOT = 942;
 
 //MCUfriends.com touch screen pin assignments
-#define YP A3
-#define YM 9
-#define XM A2
-#define XP 8
+// Flip X and Y touch pins in match 180° rotation below
+#define YP 9
+#define YM A3
+#define XM 8
+#define XP A2
 
 //hamfest touchscreen assignments
 //#define YP A2  // must be an analog pin, use "An" notation!
@@ -119,15 +130,12 @@ int offset = 0; //Status touch reading 2.5" screen
 bool newLineFlag = false;
 char Pgbuf[448];
 char Msgbuf[32];
-char TxtMsg[] = {'T','H','A','N','K',' ','Y','O','U',' ','F','O','R',' ','S','U','B','S','C','R','I','B','I','N','G','!','\n'};
 int statsMode =0;
 bool chkStatsMode = true;
 bool SwMode = false;
 bool BugMode = false;//true;//
 bool Bug2 = false;//false;//
 int ModeCnt = 0; // used to cycle thru the 3 decode modes (norm, bug, bug2)
-char TxtMsg1[] = {"1 2 3 4 5 6 7 8 9 10 11\n"};
-char TxtMsg2[] = {"This is my 3rd Message\n"};
 int msgcntr =0;
 int badCodeCnt = 0;
 char newLine = '\n'; 
@@ -370,7 +378,7 @@ void setup() {
   // LANDSCAPE 320X240 X L=226, R=946, 0 320
   //                   Y TOP=994, BOT=187,0, 240
   // in this case 0x9341 = ILI9341 LCD driver
-  tft.setRotation(1);
+  tft.setRotation(3); //Flip screen 180° - ALSO flip touch pins above
   tft.fillScreen(BLACK);
   scrnHeight = tft.height();
   scrnWidth = tft.width();
@@ -405,10 +413,10 @@ void setup() {
 //  Serial.print("\tft.height = "); Serial.print(scrnHeight);
 //  Serial.print("\n");
   if (scrnHeight == 320){ //we are using a 3.5 inch screen
-    dispMsg("             KW4KD (20190909)           ");
+    dispMsg("            Goody's Oscillator             ");
   }
   else{
-    dispMsg("      KW4KD (20190909)     ");
+    dispMsg("     Goody's Oscillator    ");
   }
   wordBrk = ((5*wordBrk)+4*avgDeadSpace)/6; 
 }//end of SetUp
@@ -486,12 +494,7 @@ void loop()
       else enableDisplay();
       Button2();
       if( interruptPin == 2) enableINT();
-    }
-    
-      //Serial.println("Norm/Bug Button");
-      //BugMode = !BugMode;
-      //Button2();
-      //tft.setCursor(cursorX, cursorY);   
+    } 
    }
     
   
